@@ -122,11 +122,9 @@ class SeedCommand extends Command
      */
     protected function dbSeed($className)
     {
-        if ($option = $this->option('class')) {
-            $params['--class'] = Str::finish(substr($className, 0, strrpos($className, '\\')), '\\') . $option;
-        } else {
-            $params = ['--class' => $className];
-        }
+        $params = [
+            '--class' => $className,
+        ];
 
         if ($option = $this->option('database')) {
             $params['--database'] = $option;

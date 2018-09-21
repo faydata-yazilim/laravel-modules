@@ -264,7 +264,7 @@ abstract class Module extends ServiceProvider
      */
     protected function fireEvent($event)
     {
-        $this->app['events']->dispatch(sprintf('modules.%s.' . $event, $this->getLowerName()), [$this]);
+        $this->app['events']->fire(sprintf('modules.%s.' . $event, $this->getLowerName()), [$this]);
     }
     /**
      * Register the aliases from this module.
@@ -378,6 +378,8 @@ abstract class Module extends ServiceProvider
      */
     public function delete()
     {
+        unlink(public_path().'/modules/'.$this->getLowerName());
+
         return $this->json()->getFilesystem()->deleteDirectory($this->getPath());
     }
 
